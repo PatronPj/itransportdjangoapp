@@ -8,3 +8,7 @@
   ->run server with: python manage.py runserver
   ->HAVE FUN!
 
+DATABASE:
+-Post
+-User
+-Profile
