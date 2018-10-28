@@ -1,5 +1,5 @@
 #How to run the web app
--start virtual env
+-start virtual env with: pipenv shell
   
   TO BE INSTALLED:
   -pip install django-crispy-forms
