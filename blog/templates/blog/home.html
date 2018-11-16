@@ -1,6 +1,9 @@
 {% extends "blog/base.html" %}
 {% block content%}
+
+<div id="mainContainer" >
   {% for post in posts %}
+  {% if user != post.author %}
   <article class="media content-section">
     <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
     <div class="media-body">
@@ -12,7 +15,11 @@
       <p class="article-content">{{ post.content }}</p>
       <pclass="article-content">Weight: {{ post.weight }}<p/>
       <pclass="article-content">Price: {{ post.price }}<p/>
+      <a class='btn btn-primary' href='{%  url "blog-home" %}'>Bewerben</a>
     </div>
   </article>
+  {% endif %}
   {% endfor %}
+</div>
+
 {% endblock content %}
