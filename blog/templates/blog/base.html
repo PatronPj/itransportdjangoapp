@@ -22,8 +22,7 @@
     $(document).ready( function() {
       $("#roles :input").change(function() {
         if(this.name === 'Auftraggeber') {
-          $("#leftNavBar").append( $( "<a id='newPost' class='btn btn-primary' href='{%  url 'post-create' %}'>Neuer Auftrag</a>" ) );
-          $("#mainContainer").hide();
+          $("#leftNavBar").append( $( "<a id='newPost' class='btn btn-primary' href='{%  url 'post-create' %}'>New Job</a>" ) );
         } else if (this.name === 'Auftragnehmer'){
           $("#newPost").remove();
           $("#mainContainer").show();
@@ -48,19 +47,19 @@
             <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
             <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
             {% if user.is_authenticated %}
-            <a id='newPost' class='btn btn-primary' href='{%  url "post-create" %}'>Neuer Auftrag</a>
+            <a id='newPost' class='btn btn-primary' href='{%  url "post-create" %}'>New Job</a>
             {% endif %}
           </div>
           <!-- Navbar Right Side -->
           <div class="navbar-nav">
             {% if user.is_authenticated %}
             <div id="roles" class="btn-group btn-group-toggle" data-toggle="buttons">
-            
+
               <label class="btn btn-secondary active">
-                <input type="radio" name="Auftraggeber" id="option2" autocomplete="off" checked> Auftraggeber
+                <input type="radio" name="Auftraggeber" id="option2" autocomplete="off" checked> Client
               </label>
               <label class="btn btn-secondary">
-                  <input type="radio" name="Auftragnehmer" id="option1" autocomplete="off"> Auftragnehmer
+                  <input type="radio" name="Auftragnehmer" id="option1" autocomplete="off"> Contractor
                 </label>
             </div>
             <a class="nav-item nav-link" href="{%  url 'profile' %}">Profile</a>
@@ -86,19 +85,86 @@
         {% endif %}
         {% block content %}{% endblock %}
       </div>
+      {% if posts %}
+      {% if user.is_authenticated %}
       <div class="col-md-4">
         <div class="content-section">
-          <h3>Our Sidebar</h3>
-          <p class='text-muted'>You can put any information here you'd like.
+          <h3>Your applications</h3>
+          <p class='text-muted'>In this List all of your applications are listed.
             <ul class="list-group">
-              <li class="list-group-item list-group-item-light">Latest Posts</li>
-              <li class="list-group-item list-group-item-light">Announcements</li>
-              <li class="list-group-item list-group-item-light">Calendars</li>
-              <li class="list-group-item list-group-item-light">etc</li>
+              <li class="list-group-item list-group-item-primary">Open</li>
+              {% for post in posts %}
+                {% if post.application_set.all %}
+                  {% for application in post.application_set.all %}
+                    {% if application.status == 0 %}
+                    {% if user == application.candidate %}
+                        <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
+                          <br>
+                          <b>at:</b> {{ application.application_date }}</li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+              {% endif%}
+            {% endfor %}
+            </ul>
+
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-success">Accepted</li>
+              {% for post in posts %}
+                {% if post.application_set.all %}
+                  {% for application in post.application_set.all %}
+                    {% if application.status == 1 %}
+                    {% if user == application.candidate %}
+                      <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
+                      <br>
+                      <b>at:</b> {{ application.application_date }}</li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+              {% endif%}
+            {% endfor %}
+            </ul>
+
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-danger">Declined</li>
+              {% for post in posts %}
+                {% if post.application_set.all %}
+                  {% for application in post.application_set.all %}
+                    {% if application.status == 2 %}
+                      {% if user == application.candidate %}
+                        <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
+                        <br>
+                        <b>at:</b> {{ application.application_date }}</li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+              {% endif%}
+            {% endfor %}
+            </ul>
+
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-warning">Applied for your Jobs</li>
+              {% for post in posts %}
+                {% if user == post.author %}
+                {% if post.application_set.all %}
+                  {% for application in post.application_set.all %}
+                      {% if user != application.candidate %}
+                        <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
+                        <br>
+                        <b>at:</b> {{ application.application_date }}
+                        <br>
+                        <b>Candidate:</b> {{ application.candidate }}</li>
+                      {% endif %}
+                  {% endfor %}
+                 {% endif %}
+              {% endif%}
+            {% endfor %}
             </ul>
           </p>
         </div>
       </div>
+      {% endif %}
+      {% endif %}
     </div>
   </main>
 

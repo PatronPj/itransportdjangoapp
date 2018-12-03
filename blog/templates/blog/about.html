@@ -1,4 +1,39 @@
 {% extends "blog/base.html" %}
 {% block content%}
-  <h1>About Page!</h1>
+<style>
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 100%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+    padding: 2px 16px;
+}
+</style>
+  <h1>About the Team</h1>
+  <br>
+  <h3>The 3 Musketeers</h3>
+  <div class="card">
+
+  <img src="/media/musketeers.jpg" alt="3Musketeers" class="center" height="400" width="100%">
+  <div class="container">
+  <p>
+    Within the project, <b>Pujan Chamani Cheri</b>, <b>Kevin Wienzek</b> and <b>Cihan Öztürk</b> developed a plattform based on python. In the course of this they made use of the python framework: Django.
+    It is a high-level Web framework that encourages rapid development and clean, pragmatic design.
+  </p>
+  <p>
+    The plattform they build is called <b>iTransport</b>. It is made for two kind of Users: <b>client</b> and <b>contractors</b>.
+    On the one hand you can earn money and on the other hand you can have your packages sent.
+    In order to have your packages sent, you need to create a job on the iTransport plattform, as a user: client. As the user: contractor, you are able to apply on the jobs, created by other users of the plattform. Upon confirmation of your application you can sent the packages of the other users, to earn money.
+    <p>
+    All in all the plattform: <b>iTransport</b> makes the lifes of two kind of people easier, the once who are too lazy to sent their packages and the once who want to earn money.
+  </p>
+  </p>
+</div>
+</div>
 {% endblock content %}

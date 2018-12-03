@@ -3,12 +3,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
 from .models import Post
+from .models import Application
 
 def home(request):
     context = {
         'posts': Post.objects.all()
     }
-    return render(request, 'blog/home.html', context)
+    posts = Post.objects.all()
+    applications = Application.objects.all()
+    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
 
 class PostListView(ListView):
     model = Post
@@ -21,7 +24,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'price', 'weight']
+    fields = ['title', 'content', 'price', 'weight', 'image']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -29,7 +32,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content', 'price', 'weight']
+    fields = ['title', 'content', 'price', 'weight', 'image']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

@@ -1,5 +1,11 @@
 {% extends "blog/base.html" %}
 {% block content%}
+<style>
+img {
+    max-width: 100%;
+    height: auto;
+}
+</style>
   <article class="media content-section">
     <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
     <div class="media-body">
@@ -8,8 +14,8 @@
         <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
         {% if object.author == user %}
         <div>
-          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
-          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+          <a class="btn btn-success" href="{% url 'post-update' object.id %}">Update</a>
+          <a class="btn btn-danger" href="{% url 'post-delete' object.id %}">Delete</a>
         </div>
         {% endif %}
       </div>
@@ -17,6 +23,9 @@
       <p class="article-content">{{ object.content }}</p>
       <pclass="article-content">Weight: {{ object.weight }}<p/>
       <pclass="article-content">Price: {{ object.price }}<p/>
+      <div class="portrait">
+        <img src="{{ post.image.url }}" width="460" height="345">
+      </div>
     </div>
   </article>
 {% endblock content %}
