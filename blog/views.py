@@ -2,8 +2,15 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
+
+
 from .models import Post
 from .models import Application
+from .models import User
+from django.utils import timezone
 
 def home(request):
     context = {
@@ -11,6 +18,36 @@ def home(request):
     }
     posts = Post.objects.all()
     applications = Application.objects.all()
+    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
+
+def apply_to_job(request, post):
+    current_post = Post.objects.get(id=post)
+    current_user = User.objects.get(id=request.user.id)
+    Application.apply_to_job(current_user, current_post)
+    post = Post.objects.all()
+    post = Post.objects.order_by('-date_posted')
+    application = Application.objects.all()
+    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
+
+def delete_application(request, application):
+    Application.delete_application(application)
+    post = Post.objects.all()
+    post = Post.objects.order_by('-date_posted')
+    application = Application.objects.all()
+    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
+
+def accecpt_application(request, application):
+    Application.accecpt_application(application)
+    post = Post.objects.all()
+    post = Post.objects.order_by('-date_posted')
+    application = Application.objects.all()
+    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
+
+def decline_application(request, application):
+    Application.decline_application(application)
+    post = Post.objects.all()
+    post = Post.objects.order_by('-date_posted')
+    application = Application.objects.all()
     return render(request, 'blog/home.html', {'posts': post, 'applications':application})
 
 class PostListView(ListView):

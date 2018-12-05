@@ -96,11 +96,14 @@
               {% for post in posts %}
                 {% if post.application_set.all %}
                   {% for application in post.application_set.all %}
-                    {% if application.status == 0 %}
-                    {% if user == application.candidate %}
-                        <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
-                          <br>
-                          <b>at:</b> {{ application.application_date }}</li>
+                    {% if application.status == 1 %}
+                      {% if user == application.candidate %}
+                        <a class="article-title" href="{%  url 'post-detail' post.id %}">
+                          <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
+                            <br>
+                            <b>at:</b> {{ application.application_date }}
+                          </li>
+                        </a>
                       {% endif %}
                     {% endif %}
                   {% endfor %}
@@ -113,11 +116,13 @@
               {% for post in posts %}
                 {% if post.application_set.all %}
                   {% for application in post.application_set.all %}
-                    {% if application.status == 1 %}
-                    {% if user == application.candidate %}
-                      <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
-                      <br>
-                      <b>at:</b> {{ application.application_date }}</li>
+                    {% if application.status == 2 %}
+                      {% if user == application.candidate %}
+                        <a class="article-title" href="{%  url 'post-detail' post.id %}">
+                          <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
+                          <br>
+                          <b>at:</b> {{ application.application_date }}</li>
+                        </a>
                       {% endif %}
                     {% endif %}
                   {% endfor %}
@@ -130,11 +135,16 @@
               {% for post in posts %}
                 {% if post.application_set.all %}
                   {% for application in post.application_set.all %}
-                    {% if application.status == 2 %}
+                    {% if application.status == 3 %}
                       {% if user == application.candidate %}
                         <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
-                        <br>
-                        <b>at:</b> {{ application.application_date }}</li>
+                          <br>
+                          <b>at:</b> {{ application.application_date }}
+                          <br>
+                          <a href="{% url 'delete_application' application=application.id %}">
+                            <button type="button" class="btn btn-danger" >Delete</button>
+                          </a>
+                        </li>
                       {% endif %}
                     {% endif %}
                   {% endfor %}
@@ -149,11 +159,34 @@
                 {% if post.application_set.all %}
                   {% for application in post.application_set.all %}
                       {% if user != application.candidate %}
-                        <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
-                        <br>
-                        <b>at:</b> {{ application.application_date }}
-                        <br>
-                        <b>Candidate:</b> {{ application.candidate }}</li>
+                        {% if application.status == 1 %}
+                          <li class="list-group-item"><b>Applied for:</b> {{ application.post.title }}
+                            <br>
+                            <b>at:</b> {{ application.application_date }}
+                            <br>
+                            <b>Candidate:</b> {{ application.candidate }}
+                            <br>
+                            <a href="{% url 'accecpt_application' application=application.id %}">
+                              <button type="button" class="btn btn-success" >Accept</button>
+                            </a>
+                            <a href="{% url 'decline_application' application=application.id %}">
+                              <button type="button" class="btn btn-danger" >Decline</button>
+                            </a>
+                          </li>
+                        {% endif %}
+                        {% if application.status == 2 %}
+                        <a class="article-title" href="{%  url 'post-detail' post.id %}">
+                          <li class="list-group-item">
+                            <font color="green"><b>*ACCEPTED*</b></font>
+                            <br>
+                            <b>Applied for:</b> {{ application.post.title }}
+                            <br>
+                            <b>at:</b> {{ application.application_date }}
+                            <br>
+                            <b>Candidate:</b> {{ application.candidate }}
+                          </li>
+                        </a>
+                        {% endif %}
                       {% endif %}
                   {% endfor %}
                  {% endif %}

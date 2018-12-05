@@ -27,7 +27,9 @@ img {
       <br>
       {% if user.is_authenticated %}
         {% if post.author != user %}
-          <a class='btn btn-primary' href='{%  url "blog-home" %}'>Apply</a>
+          <a href="{% url 'apply_to_job' post=post.id %}">
+            <button type="button" class="btn btn-primary" >Apply</button>
+          </a>
         {% endif %}
       {% endif %}
       {% if post.author == user %}

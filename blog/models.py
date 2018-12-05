@@ -27,3 +27,21 @@ class Application(models.Model):
 
     def __str__(self):
         return self.post.title
+
+    @classmethod
+    def apply_to_job(cls, current_user, current_post):
+        Application.objects.create(post = current_post, candidate = current_user, application_date = timezone.now(), status = 1)
+        current_post.application_set.all()
+
+    @classmethod
+    def delete_application(cls, application):
+        instance = Application.objects.get(id=application)
+        instance.delete()
+
+    @classmethod
+    def accecpt_application(cls, application):
+        Application.objects.filter(id=application).update(status=2)
+
+    @classmethod
+    def decline_application(cls, application):
+        Application.objects.filter(id=application).update(status=3)
