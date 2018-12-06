@@ -27,6 +27,7 @@ def apply_to_job(request, post):
     post = Post.objects.all()
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
+    messages.success(request, f'Congratulations, you applied to a job!')
     return render(request, 'blog/home.html', {'posts': post, 'applications':application})
 
 def delete_application(request, application):
@@ -34,6 +35,7 @@ def delete_application(request, application):
     post = Post.objects.all()
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
+    messages.info(request, f'You successfully deleted your declined application!')
     return render(request, 'blog/home.html', {'posts': post, 'applications':application})
 
 def accecpt_application(request, application):
@@ -41,6 +43,7 @@ def accecpt_application(request, application):
     post = Post.objects.all()
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
+    messages.success(request, f'Congratulations, you accepted an application!')
     return render(request, 'blog/home.html', {'posts': post, 'applications':application})
 
 def decline_application(request, application):
@@ -48,6 +51,7 @@ def decline_application(request, application):
     post = Post.objects.all()
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
+    messages.info(request, f'You declined an application!')
     return render(request, 'blog/home.html', {'posts': post, 'applications':application})
 
 class PostListView(ListView):
