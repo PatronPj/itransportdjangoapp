@@ -1,13 +1,44 @@
 {% extends "blog/base.html" %}
 {% block content%}
+{% load mathfilters %}
 <style>
-img {
+  img {
     max-width: 100%;
     height: auto;
 }
 </style>
-<div id="mainContainer" >
+<div id="mainContainer">
   <h2>Jobs</h2>
+  <nav aria-label="...">
+      <ul class="pagination justify-content-center">
+    
+        <li class="page-item">
+            {% if page == 1 %}
+            <a class="page-link btn disabled" href="/{{ page|sub:2 }}" tabindex="-1">Previous</a>
+            {% else %}
+            <a class="page-link btn" href="/{{ page|sub:2 }}" tabindex="-1">Previous</a>
+            {% endif %}
+        </li>
+    
+        {% for i in range %}
+            {% if forloop.counter == page %}
+                <li class="page-item active"><a class="page-link" href="/{{ forloop.counter|sub:1 }}">{{ forloop.counter }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="/{{ forloop.counter|sub:1 }}">{{ forloop.counter }}</a></li>
+            {% endif %}
+        {% endfor %}
+    
+        <li class="page-item">
+            {% if page >= pageAmount|sub:1 %}
+            <a class="page-link btn disabled" href="/{{ page }}">Next</a>
+            {% else %}
+            <a class="page-link" href="/{{ page }}">Next</a>
+            {% endif %}
+        </li>
+    
+      </ul>
+    </nav>
+    <br>
   {% for post in posts %}
   <article class="media content-section">
     <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
@@ -18,26 +49,58 @@ img {
       </div>
       <h2><a class="article-title" href="{%  url 'post-detail' post.id %}">{{ post.title }}</a></h2>
       <p class="article-content">{{ post.content }}</p>
-      <pclass="article-content">Weight: {{ post.weight }}<p/>
-      <pclass="article-content">Price: {{ post.price }}<p/>
-      {% if post.image %}
-      <img src="{{ post.image.url }}" width="460" height="345">
-      {% endif %}
-      <br>
-      <br>
-      {% if user.is_authenticated %}
-        {% if post.author != user %}
+      <pclass="article-content">Weight: {{ post.weight }}
+        <p />
+        <pclass="article-content">Price: {{ post.price }}
+          <p />
+          {% if post.image %}
+          <img src="{{ post.image.url }}" width="460" height="345">
+          {% endif %}
+          <br>
+          <br>
+          {% if user.is_authenticated %}
+          {% if post.author != user %}
           <a href="{% url 'apply_to_job' post=post.id %}">
-            <button type="button" class="btn btn-primary" >Apply</button>
+            <button type="button" class="btn btn-primary">Apply</button>
           </a>
-        {% endif %}
-      {% endif %}
-      {% if post.author == user %}
-        <a class="btn btn-success" href="{% url 'post-update' post.id %}">Update</a>
-        <a class="btn btn-danger" href="{% url 'post-delete' post.id %}">Delete</a>
-      {% endif %}
+          {% endif %}
+          {% endif %}
+          {% if post.author == user %}
+          <a class="btn btn-success" href="{% url 'post-update' post.id %}">Update</a>
+          <a class="btn btn-danger" href="{% url 'post-delete' post.id %}">Delete</a>
+          {% endif %}
     </div>
   </article>
   {% endfor %}
 </div>
+<nav aria-label="...">
+  <ul class="pagination justify-content-center">
+
+    <li class="page-item">
+        {% if page == 1 %}
+        <a class="page-link btn disabled" href="/{{ page|sub:2 }}" tabindex="-1">Previous</a>
+        {% else %}
+        <a class="page-link btn" href="/{{ page|sub:2 }}" tabindex="-1">Previous</a>
+        {% endif %}
+    </li>
+
+    {% for i in range %}
+        {% if forloop.counter == page %}
+            <li class="page-item active"><a class="page-link" href="/{{ forloop.counter|sub:1 }}">{{ forloop.counter }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="/{{ forloop.counter|sub:1 }}">{{ forloop.counter }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+    <li class="page-item">
+        {% if page >= pageAmount|sub:1 %}
+        <a class="page-link btn disabled" href="/{{ page }}">Next</a>
+        {% else %}
+        <a class="page-link" href="/{{ page }}">Next</a>
+        {% endif %}
+    </li>
+
+  </ul>
+</nav>
+<br> <br>
 {% endblock content %}

@@ -4,7 +4,8 @@ from . import views
 from django.conf.urls import include, url
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='blog-home'),
+    path('', views.home, name='blog-home'),
+    path('<int:page>', views.home, name='blog-home'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),

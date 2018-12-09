@@ -12,13 +12,17 @@ from .models import Application
 from .models import User
 from django.utils import timezone
 
-def home(request):
-    context = {
-        'posts': Post.objects.all()
-    }
-    posts = Post.objects.all()
+def home(request, page=0):
+    if page == -1:
+        page = 1
+    articlesOnPage = 2
+    offset = articlesOnPage * page
+    posts = Post.objects.all()[offset:(offset+articlesOnPage)]
+    pageAmount = len(Post.objects.all())/2
+    if pageAmount.is_integer() == False:
+        pageAmount += 1
     applications = Application.objects.all()
-    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
+    return render(request, 'blog/home.html', {'posts': posts, 'applications':applications, 'page': (page+1), 'range': range(int(pageAmount)), 'pageAmount':pageAmount })
 
 def apply_to_job(request, post):
     current_post = Post.objects.get(id=post)
