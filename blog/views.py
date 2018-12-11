@@ -5,12 +5,15 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
-
+from django.conf import settings
+from django.core.mail import send_mail
+from django.utils import timezone
 
 from .models import Post
 from .models import Application
 from .models import User
-from django.utils import timezone
+
+
 
 def home(request, page=0):
     if page == -1:
@@ -22,7 +25,8 @@ def home(request, page=0):
     if pageAmount.is_integer() == False:
         pageAmount += 1
     applications = Application.objects.all()
-    return render(request, 'blog/home.html', {'posts': posts, 'applications':applications, 'page': (page+1), 'range': range(int(pageAmount)), 'pageAmount':pageAmount })
+    return render(request, 'blog/home.html', {'posts': posts, 'applications': applications, 'page': (page+1), 'range': range(int(pageAmount)), 'pageAmount': pageAmount})
+
 
 def apply_to_job(request, post):
     current_post = Post.objects.get(id=post)
@@ -32,15 +36,20 @@ def apply_to_job(request, post):
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
     messages.success(request, f'Congratulations, you applied to a job!')
-    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
+    #send_mail('Subject here', 'Here is the message.', settings.EMAIL_HOST_USER, ['kevinwienzek94@yahoo.de'], fail_silently=False)
+
+    return render(request, 'blog/home.html', {'posts': post, 'applications': application})
+
 
 def delete_application(request, application):
     Application.delete_application(application)
     post = Post.objects.all()
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
-    messages.info(request, f'You successfully deleted your declined application!')
-    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
+    messages.info(
+        request, f'You successfully deleted your declined application!')
+    return render(request, 'blog/home.html', {'posts': post, 'applications': application})
+
 
 def accecpt_application(request, application):
     Application.accecpt_application(application)
@@ -48,7 +57,8 @@ def accecpt_application(request, application):
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
     messages.success(request, f'Congratulations, you accepted an application!')
-    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
+    return render(request, 'blog/home.html', {'posts': post, 'applications': application})
+
 
 def decline_application(request, application):
     Application.decline_application(application)
@@ -56,7 +66,8 @@ def decline_application(request, application):
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
     messages.info(request, f'You declined an application!')
-    return render(request, 'blog/home.html', {'posts': post, 'applications':application})
+    return render(request, 'blog/home.html', {'posts': post, 'applications': application})
+
 
 class PostListView(ListView):
     model = Post
@@ -64,8 +75,10 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
+
 class PostDetailView(DetailView):
     model = Post
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -74,6 +87,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -89,15 +103,17 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
+
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url= '/'
+    success_url = '/'
 
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
             return True
         return False
+
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
