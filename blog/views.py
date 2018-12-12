@@ -36,8 +36,8 @@ def apply_to_job(request, post):
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
     messages.success(request, f'Congratulations, you applied to a job!')
-    #send_mail('Subject here', 'Here is the message.', settings.EMAIL_HOST_USER, ['kevinwienzek94@yahoo.de'], fail_silently=False)
-
+    send_mail('Job Application', 'Congratulations, you applied to a job!', settings.EMAIL_HOST_USER, [current_user.email], fail_silently=False)
+    send_mail('Job Application', 'The user ' + current_user.username + ' successfully applied to your offer', settings.EMAIL_HOST_USER, [current_post.author.email], fail_silently=False)
     return render(request, 'blog/home.html', {'posts': post, 'applications': application})
 
 
@@ -55,7 +55,6 @@ def accecpt_application(request, application):
     Application.accecpt_application(application)
     post = Post.objects.all()
     post = Post.objects.order_by('-date_posted')
-    application = Application.objects.all()
     messages.success(request, f'Congratulations, you accepted an application!')
     return render(request, 'blog/home.html', {'posts': post, 'applications': application})
 

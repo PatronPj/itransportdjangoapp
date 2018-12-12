@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.mail import send_mail
+from django.conf import settings
 from PIL import Image
 
 class Post(models.Model):
@@ -40,8 +42,12 @@ class Application(models.Model):
 
     @classmethod
     def accecpt_application(cls, application):
+        instance = Application.objects.get(id=application)
+        send_mail('Job Application', 'Your job application was accepted', settings.EMAIL_HOST_USER, [instance.candidate.email], fail_silently=False)
         Application.objects.filter(id=application).update(status=2)
 
     @classmethod
     def decline_application(cls, application):
+        instance = Application.objects.get(id=application)
+        send_mail('Job Application', 'Your job application was declined', settings.EMAIL_HOST_USER, [instance.candidate.email], fail_silently=False)
         Application.objects.filter(id=application).update(status=3)
