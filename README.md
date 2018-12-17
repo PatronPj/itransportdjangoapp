@@ -1,6 +1,8 @@
 # iTransport
 
-Within the project, Pujan Chamani Cheri, Kevin Wienzek and Cihan Öztürk developed a plattform based on python. In the course of this they made use of the python framework: Django. It is a high-level Web framework that encourages rapid development and clean, pragmatic design.
+Within the project, * **Pujan Chamani Cheri** - (https://github.com/PatronPj)
+* **Kevin Wienzek** - (https://github.com/kWienzek) and
+* **Cihan Öztürk** - (https://github.com/coz1) developed a plattform based on python. In the course of this they made use of the python framework: Django. It is a high-level Web framework that encourages rapid development and clean, pragmatic design.
 
 The plattform they build is called iTransport. It is made for two kind of Users: client and contractors. On the one hand you can earn money and on the other hand you can have your packages sent. In order to have your packages sent, you need to create a job on the iTransport plattform, as a user: client. As the user: contractor, you are able to apply on the jobs, created by other users of the plattform. Upon confirmation of your application you can sent the packages of the other users, to earn money.
 
@@ -54,8 +56,6 @@ NewUser, testo1234
 * **Pujan Chamani Cheri** - [PatronPJ](https://github.com/PatronPj)
 * **Kevin Wienzek** - [kWienzek](https://github.com/kWienzek)
 * **Cihan Öztürk** - [coz1](https://github.com/coz1)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
