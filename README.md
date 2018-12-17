@@ -51,9 +51,9 @@ NewUser, testo1234
 
 ## Authors
 
-* **Pujan Chamani Cheri** - *Initial work* - [PatronPJ](https://github.com/PatronPj)
-* **Kevin Wienzek** - *Initial work* - [Kevo](www.artemis.com)
-* **Cihan Öztürk** - *Initial work* - [Cihan](www.artemis.com)
+* **Pujan Chamani Cheri** - [PatronPJ](https://github.com/PatronPj)
+* **Kevin Wienzek** - [kWienzek](https://github.com/kWienzek)
+* **Cihan Öztürk** - [coz1](https://github.com/coz1)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
