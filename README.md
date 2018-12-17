@@ -51,9 +51,9 @@ NewUser, testo1234
 
 ## Authors
 
-* **Pujan Chamani Cheri** - *Initial work* - [Pujan](https://github.com/PatronPj)
-* **Kevin Wienzek** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Cihan Öztürk** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Pujan Chamani Cheri** - *Initial work* - [PatronPJ](https://github.com/PatronPj)
+* **Kevin Wienzek** - *Initial work* - [Kevo](www.artemis.com)
+* **Cihan Öztürk** - *Initial work* - [Cihan](www.artemis.com)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
