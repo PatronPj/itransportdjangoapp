@@ -51,7 +51,7 @@ NewUser, testo1234
 
 ## Authors
 
-* **Pujan Chamani Cheri** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Pujan Chamani Cheri** - *Initial work* - [Pujan](https://github.com/PatronPj)
 * **Kevin Wienzek** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 * **Cihan Öztürk** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 
