@@ -23,6 +23,14 @@ img {
       <p class="article-content">{{ object.content }}</p>
       <pclass="article-content">Weight: {{ object.weight }} kg<p/>
       <pclass="article-content">Price: {{ object.price }} EURO<p/>
+      {% if object.author == user %}
+        <pclass="article-content">Collection Adress: {{ object.adress1 }} <p/>
+        <pclass="article-content">ZIP / Postal code: {{ object.zip_code1 }} <p/>
+        <pclass="article-content">City: {{ object.city1 }} <p/>
+        <pclass="article-content">Shipping Adress: {{ object.adress2 }} <p/>
+        <pclass="article-content">ZIP / Postal code: {{ object.zip_code2 }} <p/>
+        <pclass="article-content">City: {{ object.city2 }} <p/>
+      {% endif %}
       <div class="portrait">
         <img src="{{ post.image.url }}" width="460" height="345">
       </div>

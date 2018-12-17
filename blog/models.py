@@ -15,6 +15,14 @@ class Post(models.Model):
         weight = models.IntegerField()
         image = models.ImageField(default='default-package.jpg', upload_to='post_image')
 
+        adress1 = models.CharField("Collection Address", max_length=100)
+        zip_code1 = models.CharField("ZIP / Postal code",max_length=12)
+        city1 = models.CharField("City",max_length=1024)
+
+        adress2 = models.CharField("Shipping Address", max_length=100)
+        zip_code2 = models.CharField("ZIP / Postal code",max_length=12)
+        city2 = models.CharField("City",max_length=1024)
+
         def __str__(self):
             return self.title
 
@@ -43,11 +51,12 @@ class Application(models.Model):
     @classmethod
     def accecpt_application(cls, application):
         instance = Application.objects.get(id=application)
-        send_mail('Job Application', 'Your job application was accepted', settings.EMAIL_HOST_USER, [instance.candidate.email], fail_silently=False)
+        send_mail('Job Application', 'Your job application for: ' +instance.post.title +' was accepted. The collection adress is: '+instance.post.adress1+' in '+instance.post.zip_code1+' '+instance.post.city1+'. The shipping adress is: '+ instance.post.adress2+' in '+instance.post.zip_code2+' '+instance.post.city2+'.'
+        , settings.EMAIL_HOST_USER, [instance.candidate.email], fail_silently=False)
         Application.objects.filter(id=application).update(status=2)
 
     @classmethod
     def decline_application(cls, application):
         instance = Application.objects.get(id=application)
-        send_mail('Job Application', 'Your job application was declined', settings.EMAIL_HOST_USER, [instance.candidate.email], fail_silently=False)
+        send_mail('Job Application', 'Your job application for: ' + instance.post.title +' was declined!', settings.EMAIL_HOST_USER, [instance.candidate.email], fail_silently=False)
         Application.objects.filter(id=application).update(status=3)

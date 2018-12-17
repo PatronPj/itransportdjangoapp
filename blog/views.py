@@ -36,8 +36,8 @@ def apply_to_job(request, post):
     post = Post.objects.order_by('-date_posted')
     application = Application.objects.all()
     messages.success(request, f'Congratulations, you applied to a job!')
-    send_mail('Job Application', 'Congratulations, you applied to a job!', settings.EMAIL_HOST_USER, [current_user.email], fail_silently=False)
-    send_mail('Job Application', 'The user ' + current_user.username + ' successfully applied to your offer', settings.EMAIL_HOST_USER, [current_post.author.email], fail_silently=False)
+    send_mail('Job Application', 'Congratulations, you applied to the job:'+current_post.title +'!', settings.EMAIL_HOST_USER, [current_user.email], fail_silently=False)
+    send_mail('Job Application', 'The user ' + current_user.username + ' successfully applied to your offer: '+current_post.title +'.', settings.EMAIL_HOST_USER, [current_post.author.email], fail_silently=False)
     return render(request, 'blog/home.html', {'posts': post, 'applications': application})
 
 
@@ -81,7 +81,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'price', 'weight', 'image']
+    fields = ['title', 'content', 'price', 'weight', 'image', 'adress1', 'zip_code1', 'city1', 'adress2', 'zip_code2', 'city2']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -90,7 +90,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content', 'price', 'weight', 'image']
+    fields = ['title', 'content', 'price', 'weight', 'image', 'adress1', 'zip_code1', 'city1', 'adress2', 'zip_code2', 'city2']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
