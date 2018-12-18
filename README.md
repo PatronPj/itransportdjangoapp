@@ -15,6 +15,7 @@ These instructions will get you a copy of the project up and running on your loc
 Confirm your Python version
 ```
 $ python --version
+Python 2.7.15
 ```
 
 If the output is different to: Python 3.7.0, you need to install the correct version for this project.
