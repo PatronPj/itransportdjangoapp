@@ -61,6 +61,9 @@ $ python manage.py runserver
 The terminal outputs the starting development server. Call the server.
 
 ## Users
+
+(username, password)
+
 ```
 admin, admin
 xatar, testo1234
