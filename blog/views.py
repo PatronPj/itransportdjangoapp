@@ -20,12 +20,13 @@ def home(request, page=0):
         page = 1
     articlesOnPage = 2
     offset = articlesOnPage * page
-    posts = Post.objects.all()[offset:(offset+articlesOnPage)]
+    subPosts = Post.objects.all()[offset:(offset+articlesOnPage)]
     pageAmount = len(Post.objects.all())/2
     if pageAmount.is_integer() == False:
         pageAmount += 1
+    posts = Post.objects.all()
     applications = Application.objects.all()
-    return render(request, 'blog/home.html', {'posts': posts, 'applications': applications, 'page': (page+1), 'range': range(int(pageAmount)), 'pageAmount': pageAmount})
+    return render(request, 'blog/home.html', {'subPosts': subPosts, 'applications': applications, 'page': (page+1), 'range': range(int(pageAmount)), 'pageAmount': pageAmount, 'posts':posts})
 
 
 def apply_to_job(request, post):
