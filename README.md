@@ -12,14 +12,34 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You need the following python version: 3.7.0.
+Confirm your Python version
+```
+$ python --version
+```
 
-What things you need to install the software and how to install them
+If the output is different to: Python 3.7.0, you need to install the correct version for this project.
+
+If you already installed brew on your system install the correct version of Python, run the following command:
 
 ```
-pip install django-crispy-forms
-pip install Pillow
-pip install django-mathfilters
+$ brew install python3
+```
+
+else visit https://brew.sh/index_de, in order to install brew.
+
+Now let’s confirm which version was installed:
+
+```
+$ python3 --version
+Python 3.7.0
+```
+
+You need to install more:
+
+```
+$ pip install django-crispy-forms
+$ pip install Pillow
+$ pip install django-mathfilters
 ```
 
 ### Installing
@@ -30,13 +50,13 @@ Clone this project into a directory you want and change into this directory.
 First start the virtual enviroment:
 
 ```
-pipenv shell
+$ pipenv shell
 ```
 
 Now you need to run the local server:
 
 ```
-python manage.py runserver
+$ python manage.py runserver
 ```
 The terminal outputs the starting development server. Call the server.
 
