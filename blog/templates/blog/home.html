@@ -59,11 +59,38 @@
           <br>
           <br>
           {% if user.is_authenticated %}
-          {% if post.author != user %}
-          <a href="{% url 'apply_to_job' post=post.id %}">
-            <button type="button" class="btn btn-primary">Apply</button>
-          </a>
-          {% endif %}
+            {% if post.author != user %}
+
+            {% if post.application_set.all %}
+              {% for application in post.application_set.all %}
+                {% if application.status == 1 %}
+                  {% if user != application.candidate %}
+                    <a href="{% url 'apply_to_job' post=post.id %}">
+                      <button type="button" class="btn btn-primary">Apply</button>
+                    </a>
+                  {% else %}
+                    <div>You applied to this Job!</div>
+                    <div>Keep an eye on your E-Mail, you will be notified whether your application was accepted or declined.</div>
+                  {% endif %}
+                {% elif application.status == 2 %}
+                  <font color="green"><b>Congratulations!</b></font>
+                  <div>Your application was accepted, look at your e-mail.</div>
+
+                {% elif application.status == 3 %}
+                  <font color="red"><b>Oh no!</b></font>
+                  <div>Your application was declined, look at your e-mail.</div>
+                  <div>If you want to try again, delete the declined job application.</div>
+
+                {% endif %}
+              {% endfor %}
+
+            {% else %}
+              <a href="{% url 'apply_to_job' post=post.id %}">
+                <button type="button" class="btn btn-primary">Apply</button>
+              </a>
+            {% endif %}
+
+            {% endif %}
           {% endif %}
           {% if post.author == user %}
           <a class="btn btn-success" href="{% url 'post-update' post.id %}">Update</a>
