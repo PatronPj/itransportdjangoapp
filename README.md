@@ -65,13 +65,13 @@ The terminal outputs the starting development server. Call the server.
 (username, password)
 
 ```
-admin, admin
-xatar, testo1234
-arafat, testo1234
-cihanKind, testo1234 
-kevinKind, testo1234
-testUser, testo1234
-NewUser, testo1234
+(admin, admin)
+(xatar, testo1234)
+(arafat, testo1234)
+(cihanKind, testo1234)
+(kevinKind, testo1234)
+(testUser, testo1234)
+(NewUser, testo1234)
 ```
 
 ## Authors
