@@ -45,7 +45,6 @@ $ pip install django-mathfilters
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
 Clone this project into a directory you want and change into this directory.
 
 First start the virtual enviroment:
