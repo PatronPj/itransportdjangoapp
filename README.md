@@ -34,8 +34,15 @@ Now let’s confirm which version was installed:
 $ python3 --version
 Python 3.7.0
 ```
+Then you need to install
+```
+$ sudo pip3 install virtualenv
+$ pip3 install virtualenvwrapper
+$ pip3 install django
 
-You need to install more:
+```
+
+You need to install Packages local:
 
 ```
 $ pip install django-crispy-forms
